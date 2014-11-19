@@ -1,6 +1,8 @@
 package edu.imsa.students.milestones.adapters;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import edu.imsa.students.milestones.R;
 import edu.imsa.students.milestones.models.Milestone;
@@ -14,13 +16,18 @@ import android.widget.TextView;
 
 public class MilestoneAdapter extends ArrayAdapter<Milestone> {
 	
+	private final DateFormat DATE_FORMATTER = android.text.format.DateFormat.getDateFormat(getContext());
+	
+	private String formatMilestoneDate(Date date){
+		return DATE_FORMATTER.format(date).toString();
+	}
+	
 	public MilestoneAdapter(Context context, ArrayList<Milestone> milestoneList) {
         super(context, R.layout.fragment_milestone_list_item, milestoneList);
     }
 	
 	@Override
     public View getView(int listPosition, View convertView, ViewGroup parent) {
-
         // inflate the view
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // get the view from the inflater
@@ -37,13 +44,8 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
         }
         // set the description and date of creation of the milestone
         ((TextView) currentView.findViewById(R.id.milestone_description)).setText(currentMilestone.getMilestoneDescription());
-        ((TextView) currentView.findViewById(R.id.milestone_created)).setText("Added on " + currentMilestone.getMilestoneCreated().toString());
+        ((TextView) currentView.findViewById(R.id.milestone_created)).setText("Added on " + formatMilestoneDate(currentMilestone.getMilestoneCreated()));
 
         return currentView;
     }
-	
-	public void addMilestone(Milestone newMilestone){
-		this.add(newMilestone);
-	}
-
 }

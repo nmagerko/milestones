@@ -1,11 +1,14 @@
 package edu.imsa.students.milestones;
 
+import edu.imsa.students.milestones.fragments.MilestoneListFragment;
+import edu.imsa.students.milestones.fragments.MilestoneUpdatable;
+import edu.imsa.students.milestones.models.Milestone;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements MilestoneUpdatable {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +35,21 @@ public class MainActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	public void addMilestone(Milestone newMilestone) {
+		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
+		milestoneList.addMilestone(newMilestone);	
+	}
 	
+	@Override
+	public boolean updateMilestoneProgress(int milestonePosition) {
+		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
+		return milestoneList.updateMilestoneProgress(milestonePosition);
+	}
+
+	@Override
+	public void removeMilestone(int milestonePosition) {
+		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
+		milestoneList.removeMilestone(milestonePosition);
+	}	
 }

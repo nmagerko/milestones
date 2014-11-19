@@ -12,6 +12,12 @@ public class Milestone implements Serializable {
 	private Date milestoneCreated;
 	
 	public Milestone() { }
+	
+	public Milestone(String milestoneDescription){
+		this.isCompleted = false;
+		this.milestoneDescription = milestoneDescription;
+		this.milestoneCreated = new Date();
+	}
 
 	public boolean isCompleted() {
 		return isCompleted;

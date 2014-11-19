@@ -1,21 +1,31 @@
 package edu.imsa.students.milestones.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import edu.imsa.students.milestones.R;
+import edu.imsa.students.milestones.models.Milestone;
 
 public class MilestoneAdditionFragment extends Fragment {
+	
+	private MilestoneUpdatable updateCallback;
 	
 	private void setUpAdditionButtonClickListener(final EditText additionInput, final Button additionButton){
 		additionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	// call a service here
             	String milestoneDescription = additionInput.getText().toString();
+            	if(!TextUtils.isEmpty(milestoneDescription)){
+            		Milestone additionalMilestone = new Milestone(milestoneDescription);
+	            	updateCallback.addMilestone(additionalMilestone);
+	            	
+	            	additionInput.setText("");
+            	}
             }
         });
 	}
@@ -34,4 +44,18 @@ public class MilestoneAdditionFragment extends Fragment {
 		
 		return rootView;
 	}
+	
+	@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        
+        // this makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            this.updateCallback = (MilestoneUpdatable) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement MilestoneUpdatable");
+        }
+    }
 }
