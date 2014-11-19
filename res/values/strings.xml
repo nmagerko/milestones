@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General Application Strings  -->
+    <string name="app_name">Milestones</string>
+    
+    <!-- Milestone Addition Fragment -->
+    <string name="addition_hint">Add a new milestone</string>
+    <string name="addition_button">Add</string>
+    
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
