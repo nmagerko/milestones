@@ -61,10 +61,32 @@ public class MilestoneListFragment extends ListFragment {
 	}
 	
 	@Override
+    public void onAttach(Activity activity) {
+		/* Callback Initialization */
+		// finish attachment by calling super
+        super.onAttach(activity);
+        
+        // then try to cast the parameterized activity
+        // to the expected type, and store it as the 
+        // updateCallback
+        try {
+            this.updateCallback = (MilestoneUpdatable) activity;
+        } catch (ClassCastException e) {
+        	// if the cast doesn't work, throw an error
+            throw new ClassCastException(activity.toString() + " must implement MilestoneUpdatable");
+        }
+	}
+	
+	@Override
 	public void onActivityCreated(Bundle savedInstanceState){
 		/* Post-Activity Creation List Manipulation */
 		// let super finish its task
 		super.onActivityCreated(savedInstanceState);
+		
+		// add the existing milestones
+        for(Milestone milestone : updateCallback.getExistingMilestones()){
+        	addMilestone(milestone);
+        }
 		
 		// get rid of the dividers between list items
 		getListView().setDivider(null);
@@ -97,23 +119,6 @@ public class MilestoneListFragment extends ListFragment {
 		});
 	}
 	
-	@Override
-    public void onAttach(Activity activity) {
-		/* Callback Initialization */
-		// finish attachment by calling super
-        super.onAttach(activity);
-        
-     // then try to cast the parameterized activity
-        // to the expected type, and store it as the 
-        // updateCallback
-        try {
-            this.updateCallback = (MilestoneUpdatable) activity;
-        } catch (ClassCastException e) {
-        	// if the cast doesn't work, throw an error
-            throw new ClassCastException(activity.toString() + " must implement MilestoneUpdatable");
-        }
-    }	
-	
 	/**
 	 * Allows an activity to add a new milestone
 	 * @param newMilestone	the milestone to add
@@ -126,21 +131,24 @@ public class MilestoneListFragment extends ListFragment {
 	 * Allows an activity to update the progress
 	 * of an existing milestone
 	 * @param milestonePosition	the position of the milestone to update
-	 * @return	true if the milestone is now complete, or false otherwise
+	 * @return	the updated milestone
 	 */
-	public boolean updateMilestoneProgress(int milestonePosition){
+	public Milestone updateMilestoneProgress(int milestonePosition){
 		Milestone milestoneToUpdate = (Milestone) this.getListView().getItemAtPosition(milestonePosition);
 		milestoneToUpdate.setCompleted(!milestoneToUpdate.isCompleted());
-		return milestoneToUpdate.isCompleted();
+		return milestoneToUpdate;
 	}
 	
 	/**
 	 * Allows an activity to remove a milestone
 	 * @param milestonePosition	the position of the milestone to remove
+	 * @return the post-mortem milestone
 	 */
-	public void removeMilestone(int milestonePosition){
+	public Milestone removeMilestone(int milestonePosition){
 		Milestone milestoneToRemove = (Milestone) this.getListView().getItemAtPosition(milestonePosition);
+		Milestone postMortemMilestone = milestoneToRemove.clone();
 		((MilestoneAdapter) this.getListAdapter()).remove(milestoneToRemove);
+		return postMortemMilestone;
 	}
 	
 	/**

@@ -31,6 +31,17 @@ public class Milestone implements Serializable {
 		this.milestoneDescription = milestoneDescription;
 		this.milestoneCreated = new Date();
 	}
+	
+	@Override
+	public Milestone clone(){
+		Milestone clone = new Milestone();
+		clone.setMilestoneID(milestoneID);
+		clone.setMilestoneDescription(milestoneDescription);
+		clone.setMilestoneCreated(milestoneCreated);
+		clone.setCompleted(isCompleted);
+		
+		return clone;
+	}
 
 	public Integer getMilestoneID() {
 		return milestoneID;

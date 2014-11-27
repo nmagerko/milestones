@@ -1,5 +1,8 @@
 package edu.imsa.students.milestones;
 
+import java.util.ArrayList;
+
+import edu.imsa.students.milestones.database.MilestoneDatabaseHelper;
 import edu.imsa.students.milestones.fragments.MilestoneListFragment;
 import edu.imsa.students.milestones.fragments.MilestoneUpdatable;
 import edu.imsa.students.milestones.models.Milestone;
@@ -20,6 +23,8 @@ import android.view.MenuItem;
  */
 public class MainActivity extends Activity implements MilestoneUpdatable {
 	
+	// the milestone database helper
+	private MilestoneDatabaseHelper databaseHelper;
 	// dialog to show if the user touches "about"
 	private Dialog aboutDialog;
 
@@ -29,6 +34,9 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 		// set up the content view for the entire activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		/* Database Initialization */
+		databaseHelper = MilestoneDatabaseHelper.getHelper(this);
 		
 		/* Dialog Initialization */
 		// set up the content view for the about dialog
@@ -70,7 +78,13 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 	public void addMilestone(Milestone newMilestone) {
 		// get the milestone list from the fragment manager, and add a milestone to it
 		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
-		milestoneList.addMilestone(newMilestone);	
+		Milestone storedMilestone = databaseHelper.createMilestone(newMilestone);
+		milestoneList.addMilestone(storedMilestone);	
+	}
+	
+	@Override
+	public ArrayList<Milestone> getExistingMilestones() {
+		return databaseHelper.findAllMilestones();
 	}
 	
 	@Override
@@ -78,7 +92,8 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 		// get the milestone list from the fragment manager, and update the
 		// milestone at milestonePosition with the new progress (complete/incomplete)
 		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
-		return milestoneList.updateMilestoneProgress(milestonePosition);
+		Milestone updatedMilestone = milestoneList.updateMilestoneProgress(milestonePosition);
+		return databaseHelper.updateMilestoneCompletion(updatedMilestone);
 	}
 
 	@Override
@@ -86,7 +101,8 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 		// get the milestone list from the fragment manager, and remove
 		// the milestone at milestonePosition
 		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
-		milestoneList.removeMilestone(milestonePosition);
+		Milestone milestoneToDelete = milestoneList.removeMilestone(milestonePosition);
+		databaseHelper.deleteMilestone(milestoneToDelete);
 	}
 	
 	@Override
@@ -99,6 +115,7 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 			               public void onClick(DialogInterface dialog, int id) {
 			            	   MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
 			            	   milestoneList.removeAllMilestones();
+			            	   databaseHelper.deleteAllMilestones();
 			               }
 	        })
 	        .setNegativeButton("No", null)
