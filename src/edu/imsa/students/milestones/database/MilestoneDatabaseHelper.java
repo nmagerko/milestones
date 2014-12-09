@@ -50,7 +50,7 @@ public class MilestoneDatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase database){
 		// create the details table
-		String creationStatementTemplate = "CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT,"
+		String creationStatementTemplate = "CREATE TABLE IF NOT EXISTS %s (%s INTEGER PRIMARY KEY AUTOINCREMENT,"
 				   						+ " %s TEXT NOT NULL, %s INTEGER NOT NULL, %s INTEGER NOT NULL)";
 		String creationStatement = String.format(creationStatementTemplate, 
 												 MILESTONE_DETAILS_TABLE, MILESTONE_ID_COLUMN,
@@ -100,7 +100,7 @@ public class MilestoneDatabaseHelper extends SQLiteOpenHelper {
 		Milestone locatedMilestone = null;
 		
 		String QUERY_TABLE_NAME = MILESTONE_DETAILS_TABLE;
-		String[] QUERY_COLUMNS = null; // the "*" operator in effect
+		String[] QUERY_COLUMNS = null; // the "*" operator, in effect
 		String QUERY_SELECTION = String.format("%s = ?", MILESTONE_ID_COLUMN);
 		String[] QUERY_SELECTION_ARGS = new String[]{ String.valueOf(milestoneID) };
 		String QUERY_LIMIT = String.valueOf(1);
@@ -118,7 +118,7 @@ public class MilestoneDatabaseHelper extends SQLiteOpenHelper {
 		ArrayList<Milestone> existingMilestones = new ArrayList<Milestone>();
 		
 		String QUERY_TABLE_NAME = MILESTONE_DETAILS_TABLE;
-		String[] QUERY_COLUMNS = null; // the "*" operator in effect
+		String[] QUERY_COLUMNS = null; // the "*" operator, in effect
 		
 		Cursor queryResults = database.query(QUERY_TABLE_NAME, QUERY_COLUMNS, null, null, null,
 											 null, null, null);
