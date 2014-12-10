@@ -19,17 +19,29 @@
 
     <TextView
         android:id="@+id/milestone_created"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="10dip"
         android:layout_toRightOf="@+id/icon_done"
         android:layout_toEndOf="@+id/icon_done"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:singleLine="true"
         android:textSize="8sp" />
     
-        <TextView
+    <TextView
+        android:id="@+id/milestone_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="10dip"
+        android:layout_toLeftOf="@+id/milestone_created"
+        android:layout_toStartOf="@+id/milestone_created"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dip"
+        android:layout_marginEnd="15dip"
+        android:singleLine="true"
+        android:textSize="8sp" />
+    
+  	<TextView
         android:id="@+id/milestone_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -7,8 +7,14 @@
     <string name="app_copyright">Copyright &#169; 2014</string>
     
     <!-- Milestone Addition Fragment -->
-    <string name="addition_hint">Add a new milestone</string>
-    <string name="addition_button">Add</string>
+    <string name="addition_hint">Milestone Description</string>
+    <string name="addition_button">Add Milestone</string>
+    
+    <string-array name="priority_options">
+        <item>Highest Priority</item>
+        <item>Medium Priority</item>
+        <item>Lowest Priority</item>
+    </string-array>
     
     <!-- Action Bar -->
     <string name="action_clear">Clear all</string>

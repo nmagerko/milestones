@@ -66,6 +66,7 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
         }
         // set the description and date of creation of the milestone
         ((TextView) currentView.findViewById(R.id.milestone_description)).setText(currentMilestone.getMilestoneDescription());
+        ((TextView) currentView.findViewById(R.id.milestone_priority)).setText(currentMilestone.getMilestonePriority());
         ((TextView) currentView.findViewById(R.id.milestone_created)).setText("Added on " + formatMilestoneDate(currentMilestone.getMilestoneCreated()));
 
         return currentView;

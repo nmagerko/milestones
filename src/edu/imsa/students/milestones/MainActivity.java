@@ -93,7 +93,9 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 		// milestone at milestonePosition with the new progress (complete/incomplete)
 		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
 		Milestone updatedMilestone = milestoneList.updateMilestoneProgress(milestonePosition);
-		return databaseHelper.updateMilestoneCompletion(updatedMilestone);
+		databaseHelper.updateMilestoneCompletion(updatedMilestone);
+		
+		return updatedMilestone.isCompleted();
 	}
 
 	@Override

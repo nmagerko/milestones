@@ -19,6 +19,8 @@ public class Milestone implements Serializable {
 	private Integer milestoneID;
 	// the milestone's description
 	private String milestoneDescription;
+	// the milestone's priority
+	private String milestonePriority;
 	// when the milestone was created
 	private Date milestoneCreated;
 	// whether or not the milestone has been completed
@@ -26,9 +28,10 @@ public class Milestone implements Serializable {
 	
 	public Milestone() { }
 	
-	public Milestone(String milestoneDescription){
+	public Milestone(String milestoneDescription, String milestonePriority){
 		this.isCompleted = false;
 		this.milestoneDescription = milestoneDescription;
+		this.milestonePriority = milestonePriority;
 		this.milestoneCreated = new Date();
 	}
 	
@@ -37,6 +40,7 @@ public class Milestone implements Serializable {
 		Milestone clone = new Milestone();
 		clone.setMilestoneID(milestoneID);
 		clone.setMilestoneDescription(milestoneDescription);
+		clone.setMilestonePriority(milestonePriority);
 		clone.setMilestoneCreated(milestoneCreated);
 		clone.setCompleted(isCompleted);
 		
@@ -76,6 +80,14 @@ public class Milestone implements Serializable {
 	public void setMilestoneDescription(String milestoneDescription) {
 		this.milestoneDescription = milestoneDescription;
 	}
+	
+	public String getMilestonePriority() {
+		return milestonePriority;
+	}
+
+	public void setMilestonePriority(String milestonePriority) {
+		this.milestonePriority = milestonePriority;
+	}
 
 	public Date getMilestoneCreated() {
 		return milestoneCreated;
@@ -94,5 +106,5 @@ public class Milestone implements Serializable {
 			this.milestoneCreated = new Date(milestoneCreatedEpochSeconds * SECONDS_TO_MILLISECONDS);
 		}
 	}
-
+	
 }
