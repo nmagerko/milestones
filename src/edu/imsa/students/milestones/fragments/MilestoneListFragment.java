@@ -1,6 +1,7 @@
 package edu.imsa.students.milestones.fragments;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import edu.imsa.students.milestones.R;
 import edu.imsa.students.milestones.adapters.MilestoneAdapter;
@@ -121,10 +122,19 @@ public class MilestoneListFragment extends ListFragment {
 	
 	/**
 	 * Allows an activity to add a new milestone
+	 * Each time a new milestone is added, the list
+	 * will be sorted by priority
 	 * @param newMilestone	the milestone to add
 	 */
 	public void addMilestone(Milestone newMilestone){
-		((MilestoneAdapter) this.getListAdapter()).add(newMilestone);
+		MilestoneAdapter adapter = ((MilestoneAdapter) this.getListAdapter());
+		adapter.add(newMilestone);
+		adapter.sort(new Comparator<Milestone>() {
+			@Override
+			public int compare(Milestone arg0, Milestone arg1) {
+				return arg0.compareTo(arg1);
+			}
+		});
 	}
 	
 	/**

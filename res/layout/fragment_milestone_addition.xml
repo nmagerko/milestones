@@ -22,11 +22,21 @@
 
             <requestFocus />
         </EditText>
-
+        
+        <Spinner
+		    android:id="@+id/milestone_addition_priority_spinner"
+		    android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dip"
+            android:layout_marginRight="15dip"
+		    android:entries="@array/priority_options" />
+    </TableRow>
+    <TableRow>
         <Button
             android:id="@+id/milestone_addition_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_marginEnd="15dip"
             android:layout_marginRight="15dip"
             android:layout_weight=".1"

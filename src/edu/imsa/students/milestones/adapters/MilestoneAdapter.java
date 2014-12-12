@@ -63,9 +63,12 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
         // invisible if the milestone is incomplete)
         if(currentMilestone.isCompleted()){
         	((ImageView) currentView.findViewById(R.id.icon_done)).setVisibility(View.VISIBLE);
+        } else {
+        	((ImageView) currentView.findViewById(R.id.icon_done)).setVisibility(View.INVISIBLE);
         }
-        // set the description and date of creation of the milestone
+        // set the description, priority, and date of creation of the milestone
         ((TextView) currentView.findViewById(R.id.milestone_description)).setText(currentMilestone.getMilestoneDescription());
+        ((TextView) currentView.findViewById(R.id.milestone_priority)).setText(currentMilestone.getMilestonePriority());
         ((TextView) currentView.findViewById(R.id.milestone_created)).setText("Added on " + formatMilestoneDate(currentMilestone.getMilestoneCreated()));
 
         return currentView;
