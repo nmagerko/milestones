@@ -19,7 +19,10 @@
     <!-- Action Bar -->
     <string name="action_clear">Clear all</string>
     <string name="action_show_about">About</string>
-    <string name="action_show_about_content">Milestones is a simple, intuitive to-do list. It leaves all of the 
-        fancy animations and effects behind, so that you can focus on what you need to get done.</string>
+    <string name="action_show_about_content">Milestones incorporates prioritization into a simple to-do list. Inspired
+        									 by Brendan Batliner\'s AngularJS webapp, Milestones allows you
+        									 to add a to-do, and set its priority level. The resulting milestone
+        									 will be automatically sorted by priority and then by date, and can be
+        									 deleted during a long-press.</string>
 
 </resources>

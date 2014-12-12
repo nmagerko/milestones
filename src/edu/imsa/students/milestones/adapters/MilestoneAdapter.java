@@ -36,6 +36,26 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
 	}
 	
 	/**
+	 * Formats the priority string with color based
+	 * on the value of the text to format. The values are
+	 * hard-coded because the string array returned by the
+	 * resource manager is not constant
+	 * @param priorityView	the view holding the priority string
+	 * @param textToFormat	the priority string
+	 */
+	private void formatPriorityString(TextView priorityView, String textToFormat) {
+		switch(textToFormat) {
+			case "Highest Priority":	priorityView.setTextColor(getContext().getResources().getColor(R.color.high_priority_red));
+										break;
+			case "Medium Priority":		priorityView.setTextColor(getContext().getResources().getColor(R.color.medium_priority_yellow));
+										break;
+			case "Lowest Priority":		priorityView.setTextColor(getContext().getResources().getColor(R.color.low_priority_green));
+										break;
+		}
+		priorityView.setText(textToFormat);
+	}
+	
+	/**
 	 * Creates a new adapter from the provided
 	 * list of milestones
 	 * @param context		creation context
@@ -68,7 +88,7 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
         }
         // set the description, priority, and date of creation of the milestone
         ((TextView) currentView.findViewById(R.id.milestone_description)).setText(currentMilestone.getMilestoneDescription());
-        ((TextView) currentView.findViewById(R.id.milestone_priority)).setText(currentMilestone.getMilestonePriority());
+        formatPriorityString(((TextView) currentView.findViewById(R.id.milestone_priority)), currentMilestone.getMilestonePriority());
         ((TextView) currentView.findViewById(R.id.milestone_created)).setText("Added on " + formatMilestoneDate(currentMilestone.getMilestoneCreated()));
 
         return currentView;
