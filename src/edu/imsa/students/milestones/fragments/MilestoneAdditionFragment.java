@@ -29,7 +29,7 @@ public class MilestoneAdditionFragment extends Fragment {
 	 * to work together to add a new milestone on
 	 * button click
 	 * @param additionInput			the EditText containing the milestone description
-	 * @param additionSprinner		the Spinner containing the milestone priority
+	 * @param additionSpinner		the Spinner containing the milestone priority
 	 * @param additionButton		the Button that will be clicked to trigger the milestone addition
 	 */
 	private void setUpAdditionButtonClickListener(final EditText additionInput, final Spinner additionSpinner,

@@ -30,15 +30,13 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		/* Activity Initialization */
 		// set up the content view for the entire activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		/* Database Initialization */
+		// initialize the database from the Helper singleton
 		databaseHelper = MilestoneDatabaseHelper.getHelper(this);
 		
-		/* Dialog Initialization */
 		// set up the content view for the about dialog
 		aboutDialog = new Dialog(this);
 		aboutDialog.setContentView(R.layout.fragment_about_dialog);
@@ -47,7 +45,6 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		/* Action Bar Initialization */
 		// set up the content for the menu
 		getMenuInflater().inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
@@ -55,7 +52,6 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		/* Action Bar Option Initialization */
 		// use a switch to determine which item the user picked
 		switch(item.getItemId()){
 			case R.id.action_show_about:
@@ -79,11 +75,15 @@ public class MainActivity extends Activity implements MilestoneUpdatable {
 		// get the milestone list from the fragment manager, and add a milestone to it
 		MilestoneListFragment milestoneList = (MilestoneListFragment) getFragmentManager().findFragmentById(R.id.milestone_list_fragment);
 		Milestone storedMilestone = databaseHelper.createMilestone(newMilestone);
-		milestoneList.addMilestone(storedMilestone);	
+		if(storedMilestone.getMilestoneID() != null) {
+			// only add the Milestone if the database persisted the object
+			milestoneList.addMilestone(storedMilestone);	
+		}
 	}
 	
 	@Override
 	public ArrayList<Milestone> getExistingMilestones() {
+		// use the database helper's native method
 		return databaseHelper.findAllMilestones();
 	}
 	
