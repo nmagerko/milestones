@@ -16,7 +16,7 @@ public final class R {
     public static final class color {
         public static final int high_priority_red=0x7f040000;
         public static final int low_priority_green=0x7f040002;
-        public static final int medium_priority_yellow=0x7f040001;
+        public static final int medium_priority_orange=0x7f040001;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 

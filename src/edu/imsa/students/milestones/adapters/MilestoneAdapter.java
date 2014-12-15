@@ -47,7 +47,7 @@ public class MilestoneAdapter extends ArrayAdapter<Milestone> {
 		switch(textToFormat) {
 			case "Highest Priority":	priorityView.setTextColor(getContext().getResources().getColor(R.color.high_priority_red));
 										break;
-			case "Medium Priority":		priorityView.setTextColor(getContext().getResources().getColor(R.color.medium_priority_yellow));
+			case "Medium Priority":		priorityView.setTextColor(getContext().getResources().getColor(R.color.medium_priority_orange));
 										break;
 			case "Lowest Priority":		priorityView.setTextColor(getContext().getResources().getColor(R.color.low_priority_green));
 										break;
