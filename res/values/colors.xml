@@ -1,4 +1,5 @@
 <resources>
+    <!-- Priority colors -->
     <color name="high_priority_red">#D80000</color>
     <color name="medium_priority_orange">#E59400</color>
     <color name="low_priority_green">#007300</color>
